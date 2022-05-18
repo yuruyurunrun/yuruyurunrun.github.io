@@ -44,28 +44,48 @@
 
     // 箱を作成
     var geometry = new THREE.BoxGeometry(1, 1, 1);
-    var material = new THREE.MeshPhongMaterial({ color: 0x0000ff });
+    var material = new THREE.MeshPhongMaterial({ color: 0x7777ff });
     var box = new THREE.Mesh(geometry, material);
     box.position.set(0,0,0); //位置を指定
     scene.add(box);   // シーンに追加
   
+
+    //球
+    var sphereGeometry = new THREE.SphereGeometry( 0.5, 132, 132 );
+    var sphereMaterial = new THREE. MeshPhongMaterial( {color: 0x4099ff} );
+    var sphere = new THREE.Mesh( sphereGeometry, sphereMaterial );
+    sphere.position.set( 1, 2, -5 );
+    scene.add( sphere );
+    sphere.rotation.x += 0.03;
+    sphere.rotation.y += 0.03;
+
+    var sphereGeometry = new THREE.SphereGeometry( 0.2, 12, 12 );
+    var MeshNormalMaterial = new THREE. MeshPhongMaterial( {color: 0x6699ff,wireframe: true} );
+    var sphere = new THREE.Mesh( sphereGeometry, MeshNormalMaterial );
+    sphere.position.set( 2.3, 2, -5 );
+    scene.add( sphere );
+    sphere.rotation.x += 0.03;
+    sphere.rotation.y += 0.03;
+
+    //ドーナッツ
+    var torusGeometry = new THREE.TorusGeometry( 2.25, 0.7, 6, 12 );
+    var torusMaterial = new THREE. MeshToonMaterial( { color: 0x0000ff } );
+    var torus = new THREE.Mesh( torusGeometry, torusMaterial );
+    torus.position.set( -1, -0.85, -4.5);
+    torus.rotation.y +=0.15;
+    scene.add( torus );
+
+
+
     // 初回実行
     var update = function() {
       requestAnimationFrame(update);
   
       // 箱を回転させる
-      box.rotation.x += 0.02;
-      box.rotation.y += 0.05;
+      box.rotation.x += 0.1;
+      box.rotation.y += 0.1;
   
       renderer.render(scene, camera);
-
-
-      //球
-      var sphereGeometry = new THREE.SphereGeometry( 0.5, 32, 32 );
-      var sphereMaterial = new THREE. MeshPhongMaterial( {color: 0x0000ff,wireframe: true} );
-      var sphere = new THREE.Mesh( sphereGeometry, sphereMaterial );
-      sphere.position.set( 0, 0, -5 );
-      scene.add( sphere );
 
 
     };
