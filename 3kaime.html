@@ -25,7 +25,7 @@
         // カメラを作成
         const camera = new THREE.PerspectiveCamera(45, width / height);
         // カメラの初期座標を設定
-        camera.position.set(0, 0, 5);
+        camera.position.set(0, 2, 15);
 
         // カメラコントローラーを作成
         const controls = new THREE.OrbitControls(camera, document.body); 
@@ -42,94 +42,60 @@
         scene.add(directionalLight2);
 
         // helper
-        const gridHelper = new THREE.GridHelper(2,10); // size, step
-        scene.add(gridHelper);
-        const axisHelper = new THREE.AxisHelper(2); //軸の長さ　X：赤、Y：緑、z：青
-        scene.add(axisHelper);
+        //const gridHelper = new THREE.GridHelper(2,10); // size, step
+        //scene.add(gridHelper);
+        //const axisHelper = new THREE.AxisHelper(2); //軸の長さ　X：赤、Y：緑、z：青
+        //scene.add(axisHelper);
 
         // 箱を作成
-        var geometry =new THREE.SphereGeometry( 0.5, 16, 16 );
+        var geometry =new THREE.SphereGeometry( 1, 128, 128 );
         var material = new THREE.MeshPhongMaterial({ color: 0x0000ff });
         var dango1 = new THREE.Mesh(geometry, material);
         dango1.position.set(0.3,0.21,0);
-        //scene.add(dango1);
-        //
+
+        var geometry =new THREE.SphereGeometry( 1, 128, 128 );
+        var material = new THREE.MeshPhongMaterial({ color: 0x77007});
         var dango2 = new THREE.Mesh(geometry, material);
-        dango2.position.set(0.9,0.27,0);
-        //scene.add(dango2);
-        //
+        dango2.position.set(2,0.30,0);
+
+        var geometry =new THREE.SphereGeometry( 1, 128, 128 );
+        var material = new THREE.MeshPhongMaterial({ color: 0x770077 });
         var dango3 = new THREE.Mesh(geometry, material);
-        dango3.position.set(-0.3,0.27,0);
-        //scene.add(dango3);
-        //
-        var dango4 = new THREE.Mesh(geometry, material);
-        dango4.position.set(-0.9,0.27,0);
+       dango3.position.set(-1.5,0.30,0);
 
-        var dango5 = new THREE.Mesh(geometry, material);
-        dango5.position.set(-1.2,0.27,0);
-        var dango6 = new THREE.Mesh(geometry, material);
-        dango6.position.set(-1.8,0.27,0);
-        var dango7 = new THREE.Mesh(geometry, material);
-        dango7.position.set(-2.0,0.27,0);
-        var dango8 = new THREE.Mesh(geometry, material);
-        dango8.position.set(-2.1,0.27,0);
-        var dango9 = new THREE.Mesh(geometry, material);
-        dango9.position.set(-2.4,0.27,0);
-        var dango10 = new THREE.Mesh(geometry, material);
-        dango10.position.set(-2.7,0.27,0);
-        var dango11 = new THREE.Mesh(geometry, material);
-        dango11.position.set(-3.0,0.27,0);
-        var dango12 = new THREE.Mesh(geometry, material);
-        dango12.position.set(-3.3,0.27,0);
-        var dango13 = new THREE.Mesh(geometry, material);
+       var cylinderGeometry = new THREE.CylinderGeometry( 5, 3, 0.7, 160 );
+       var cylinderMaterial = new THREE.MeshNormalMaterial( {color: 0x0000ff} );
+       var sara = new THREE.Mesh( cylinderGeometry, cylinderMaterial );
+       sara.position.set( 0, -1, 0 );
+       //scene.add( sara );
+
+       var cylinderGeometry = new THREE.CylinderGeometry( 0.2, 0.2, 5, 30 );
+       var cylinderMaterial = new THREE.MeshPhongMaterial( {color: 0xffff00} );
+       var kushi = new THREE.Mesh( cylinderGeometry, cylinderMaterial );
+       kushi.position.set( 2, 0.2, 0);
+       kushi.rotation.set(Math.PI/2,0,1.5);
+       scene.position.set(0,0,0);
 
 
-        //dango13.position.set(0.12,0.27,0);
-        //var dango14 = new THREE.Mesh(geometry, material);
-        //dango14.position.set(0.15,0.27,0);
-        //var dango15 = new THREE.Mesh(geometry, material);
-        //dango15.position.set(0.18,0.27,0);
-        //var dango16 = new THREE.Mesh(geometry, material);
-        //dango16.position.set(0.21,0.27,0);
-        //var dango17 = new THREE.Mesh(geometry, material);
-        //dango17.position.set(0.24,0.27,0);
-        //var dango18 = new THREE.Mesh(geometry, material);
-        //dango18.position.set(0.27,0.27,0);
-        //var dango19 = new THREE.Mesh(geometry, material);
-        //dango19.position.set(0.30,0.27,0);
-        //var dango20 = new THREE.Mesh(geometry, material);
-        //dango20.position.set(0.33,0.27,0);
-        //var dango21 = new THREE.Mesh(geometry, material);
-        //dango21.position.set(0.36,0.27,0);
-        //var dango22 = new THREE.Mesh(geometry, material);
-        //dango22.position.set(-0.33,0.27,0);
-        //scene.add(dango4);
+       // 平面を作成
+       var planeGeometry = new THREE.PlaneGeometry(12,12,10,10); //縦、横、分割数、分割数
+       var planeMaterial = new THREE.MeshBasicMaterial({color: 0x000fff});
+       var plane = new THREE.Mesh(planeGeometry,planeMaterial);
+       plane.rotation.set( -Math.PI/2, 0, 0 );
+       plane.position.set(0,-1.5,0);
+       planeGeometry.receiveShadow = true;
+       scene.add(plane);
+
 
         //全体のオブジェクト
         //const all = new THREE.Object3D(); 
         const all = new THREE.Group()
         all.add(dango1); // 1を追加 
-        all.add(dango2); // 2を追加 
-        all.add(dango3); // 3を追加 
-        all.add(dango4); // 4を追加 
-        all.add(dango5);
-        all.add(dango6);
-        all.add(dango7);
-        all.add(dango8);
-        all.add(dango9);
-        all.add(dango10);
-        all.add(dango11);
-        all.add(dango12);
-        all.add(dango13);
-        //all.add(dango14);
-        //all.add(dango15);
-        //all.add(dango16);
-        //all.add(dango17);
-        //all.add(dango18);
-        //all.add(dango19);
-        //all.add(dango20);
-        //all.add(dango21);
-        //all.add(dango22);
+        all.add(dango2);
+        all.add(dango3);
+        all.add(sara);
+        all.add(kushi);
+
 
         //all.add(dkushi); // くしを追加 
 
@@ -145,16 +111,8 @@
           requestAnimationFrame(update);
 
         // 箱を回転させる
-        dango1.rotation.x += 0.01;
-        dango1.rotation.y += 0.01;
-        //dango2.rotation.x += 0.01;
-        //dango2.rotation.y += 0.01;
-        dango3.rotation.x += 0.01;
-        dango3.rotation.y += 0.01;
-        //dango4.rotation.x += 0.01;
-        //dango4.rotation.y += 0.01;
 
-        all.rotation.x += 0.01;
+        //all.rotation.x += -0.1;
         all.rotation.y += 0.01;
 
         }
