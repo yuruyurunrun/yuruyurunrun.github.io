@@ -5,23 +5,23 @@
     <script src="https://unpkg.com/three@0.137.4/examples/js/controls/OrbitControls.js"></script>
   </head>
 <body>
- <h1>森を作成</h1>
- ループで２０本の気を作った<br>
+ <h1>ビル作成</h1>
+ サンプルと同様にループで30本のビルを生成しました<br>
  <script>
       // ページの読み込みを待つ
       window.addEventListener('DOMContentLoaded', init);
 
       function init() {
         // サイズを指定
-        const width = 800
-        const height = 600;
+        const width = 1200
+        const height = 800;
 
         // レンダラーを作成
         var renderer = new THREE.WebGLRenderer();
         document.body.appendChild(renderer.domElement);
         renderer.setSize(width, height);
         // 背景の色を設定
-        renderer.setClearColor(0xffffdd);
+        renderer.setClearColor(0xffdd);
 
 
         // シーンを作成
@@ -46,21 +46,15 @@
         // シーンに追加
         scene.add(directionalLight2);
 
-        // helper
-        const gridHelper = new THREE.GridHelper(2,10); // size, step
-        scene.add(gridHelper);
-        const axisHelper = new THREE.AxisHelper(2); //軸の長さ　X：赤、Y：緑、z：青
-        scene.add(axisHelper);
-
-        // 木をスプライトで作成
+       
         var textureLoader = new THREE.TextureLoader();  
         var texture = textureLoader.load("img/img_bf.png");
         const material = new THREE.SpriteMaterial({ map: texture,});
 
-        // 森を作成
+ 
         for (let i = 0; i < 20; i++) {
           const sprite = new THREE.Sprite(material);
-          // ランダムな座標に配置
+     
           sprite.position.x = 2 * (Math.random() - 0.5);
           sprite.position.y = 0 * Math.random();
           sprite.position.z = 2 * (Math.random() - 0.5);
