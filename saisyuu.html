@@ -3,11 +3,9 @@
     <meta charset="utf-8" />
     <script src="https://unpkg.com/three@0.137.4/build/three.min.js"></script>
     <script src="https://unpkg.com/three@0.137.4/examples/js/controls/OrbitControls.js"></script>
-    <script src="js/lib/minMatrixb.js"></script>
-    <script src="js/script.js" type="module"></script>
   </head>
   <h1>最終課題</h1>
-  風船と雲を作成し、風船のみ上昇していくようにしました。<br>
+  風船と雲を作成し、風船のみ上昇していくようにしました。背景にキューブテクスチャを導入しようと試みましたが実現しませんでした。<br>
 <body>
  <script>
       // ページの読み込みを待つ
@@ -58,83 +56,15 @@
         sky.map = texture;       
         
         var a = new THREE.MeshPhongMaterial({ color: 0xffffff });
-
-
-
-
-        // キューブマップ読み込み
-        var dirPath = '/img';
-        var imgPaths = [
-            dirPath+'right.png',
-            dirPath+'left.png',
-            dirPath+'up.png',
-            dirPath+'down.png',
-            dirPath+'front.png',
-            dirPath+'back.png'
-        ];
-
-        var cubeLoader = new THREE.CubeTextureLoader();
-        var cubeMap = cubeLoader.load( imgPaths, function(loadedCubeMap){
-            loadedCubeMap.generateMipmaps = true;
-            loadedCubeMap.needsUpdate = true;
-            customShader.uniforms.MaxLodLevel.value = maxLodLevel(loadedCubeMap.image[0].width, loadedCubeMap.image[0].height);
-            customShader.uniforms.CubeMap.value = loadedCubeMap;
-        });
-
-        // キューブマップ表示曜
-        var cubeShader = THREE.ShaderLib[ 'cube' ];
-        cubeShader.uniforms[ 'tCube' ].value = cubeMap;
-        cubeShader.uniforms[ 'tFlip' ].value = 1;
-         
-        var skyBoxMaterial = new THREE.ShaderMaterial({
-            fragmentShader: cubeShader.fragmentShader,
-            vertexShader: cubeShader.vertexShader,
-            uniforms: cubeShader.uniforms,
-            depthWrite: false,
-            side: THREE.BackSide
-        });
-        var  skyMesh = new THREE.Mesh( new THREE.BoxGeometry( 400, 400, 400, 1, 1, 1 ), skyBoxMaterial);
-        scene.add( skyMesh );
-
-        // create a camera, which defines where we're looking at.
-        //var camera = new THREE.PerspectiveCamera(25, window.innerWidth / window.innerHeight, 0.1, 1000);
-        //camera.position.x = 0;
-        //camera.position.y = 10;
-        //camera.position.z = 50;
-
-        // create a cube
-        var cubeGeometry = new THREE.BoxGeometry(4, 4, 4);
-        var cubeMaterial = customShader;
-        var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
-
-        // position the cube
-        cube.position.x = -4;
-        cube.position.y = 3;
-        cube.position.z = 0;
-
-        // add the cube to the scene
-        scene.add(cube);
        
 
 
-
-
-
-
-
-
-        //平面を作成
-        var geometry = new THREE.PlaneGeometry(50, 50);
-        var plane1 = new THREE.Mesh(geometry, sky);
-        plane1.rotation.set( -Math.PI/2, 0, 0 );
-        plane1.position.set(0,-2,0);
-
         // 球を作成
-        var geometry2 = new THREE.SphereGeometry(0.98, 32, 32); ;
+        var geometry2 = new THREE.SphereGeometry(2, 32, 32); ;
         var front = new THREE.Mesh(geometry2, metal);
         front.position.set(0,-0.08,-1);
 
-        var kumo_g = new THREE.SphereGeometry(0.5, 32, 32);
+        var kumo_g = new THREE.SphereGeometry(0.8, 32, 32);
         var kumo1 = new THREE.Mesh(kumo_g, a);
         kumo1.position.set(0,0,0);
         var kumo2 = new THREE.Mesh(kumo_g, a);
@@ -195,10 +125,36 @@
         var himo1 = new THREE.Mesh( cylinderGeometry, cylinderMaterial );
         himo1.position.set( 0, -2.5, -1 );
 
+        
+        var textureLoader = new THREE.TextureLoader();  
+        var texture = textureLoader.load("img/red.jpg");
+        var red = new THREE.MeshPhongMaterial();
+        red.map = texture;
+
         var husen2=new THREE.Mesh(husen_g,a);
         husen2.position.set(-3,-3,2);
         var himo2=new THREE.Mesh( cylinderGeometry, cylinderMaterial );
         himo2.position.set(-3,-5.5,2);
+        
+        var husen3=new THREE.Mesh(husen_g,a);
+        husen3.position.set(-6,-5,2);
+        var himo3=new THREE.Mesh( cylinderGeometry, cylinderMaterial );
+        himo3.position.set(-6,-7.5,2);
+
+        var husen4=new THREE.Mesh(husen_g,a);
+        husen4.position.set(-1,1,2);
+        var himo4=new THREE.Mesh( cylinderGeometry, cylinderMaterial );
+        himo4.position.set(-1,-1.5,2);
+
+        var husen5=new THREE.Mesh(husen_g,a);
+        husen5.position.set(2,-3,0);
+        var himo5=new THREE.Mesh( cylinderGeometry, cylinderMaterial );
+        himo5.position.set(2,-5.5,0);
+
+        var husen6=new THREE.Mesh(husen_g,a);
+        husen6.position.set(-3,-3,2);
+        var himo6=new THREE.Mesh( cylinderGeometry, cylinderMaterial );
+        himo6.position.set(-3,-5.5,2);
 
 
 
@@ -212,6 +168,14 @@
         husen.add(himo1);
         husen.add(husen2);
         husen.add(himo2);
+        husen.add(husen3);
+        husen.add(himo3);
+        husen.add(husen4);
+        husen.add(himo4);
+        husen.add(husen5);
+        husen.add(himo5);
+        husen.add(husen6);
+        husen.add(himo6);
         husen.position.set(0,0,0);
         scene.add(husen);
 
