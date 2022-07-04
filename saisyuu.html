@@ -28,7 +28,7 @@
         // カメラを作成
         const camera = new THREE.PerspectiveCamera(45, width / height);
         // カメラの初期座標を設定
-        camera.position.set(10, 10, 10);
+        camera.position.set(10, 5, 10);
 
         // カメラコントローラーを作成
         const controls = new THREE.OrbitControls(camera, document.body); 
@@ -47,15 +47,26 @@
         // テクスチャー読み込み
         var textureLoader = new THREE.TextureLoader(); 
         var metal = new THREE.MeshPhongMaterial();
-        metal.map = texture;
-
-        // テクスチャー読み込み
-        var textureLoader = new THREE.TextureLoader(); 
-        var texture = textureLoader.load("sky2.jpg");
-        var sky = new THREE.MeshPhongMaterial();
-        sky.map = texture;       
+        metal.map = texture;     
         
         var a = new THREE.MeshPhongMaterial({ color: 0xffffff });
+
+           
+        var textureLoader = new THREE.TextureLoader();  
+        var texture = textureLoader.load("img/red.jpg");
+        var red = new THREE.MeshPhongMaterial();
+        red.map = texture;
+
+        var textureLoader = new THREE.TextureLoader();  
+        var texture = textureLoader.load("img/blue.jpg");
+        var blue = new THREE.MeshPhongMaterial();
+        blue.map = texture;
+
+        var textureLoader = new THREE.TextureLoader();  
+        var texture = textureLoader.load("img/green.jpg");
+        var green = new THREE.MeshPhongMaterial();
+        green.map = texture;
+
        
 
 
@@ -125,25 +136,22 @@
         var himo1 = new THREE.Mesh( cylinderGeometry, cylinderMaterial );
         himo1.position.set( 0, -2.5, -1 );
 
-        
-        var textureLoader = new THREE.TextureLoader();  
-        var texture = textureLoader.load("img/red.jpg");
-        var red = new THREE.MeshPhongMaterial();
-        red.map = texture;
+     
+
 
         var husen2=new THREE.Mesh(husen_g,a);
         husen2.position.set(-3,-3,2);
-        var himo2=new THREE.Mesh( cylinderGeometry, cylinderMaterial );
+        var himo2=new THREE.Mesh( cylinderGeometry, red);
         himo2.position.set(-3,-5.5,2);
         
         var husen3=new THREE.Mesh(husen_g,a);
         husen3.position.set(-6,-5,2);
-        var himo3=new THREE.Mesh( cylinderGeometry, cylinderMaterial );
+        var himo3=new THREE.Mesh( cylinderGeometry, blue );
         himo3.position.set(-6,-7.5,2);
 
         var husen4=new THREE.Mesh(husen_g,a);
         husen4.position.set(-1,1,2);
-        var himo4=new THREE.Mesh( cylinderGeometry, cylinderMaterial );
+        var himo4=new THREE.Mesh( cylinderGeometry, green );
         himo4.position.set(-1,-1.5,2);
 
         var husen5=new THREE.Mesh(husen_g,a);
