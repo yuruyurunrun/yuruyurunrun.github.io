@@ -1,0 +1,149 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <script src="https://unpkg.com/three@0.137.4/build/three.min.js"></script>
+    <script src="https://unpkg.com/three@0.137.4/examples/js/controls/OrbitControls.js"></script>
+  </head>
+<body>
+ <script>
+      // ページの読み込みを待つ
+      window.addEventListener('DOMContentLoaded', init);
+
+      function init() {
+        // サイズを指定
+        const width = 800
+        const height = 600;
+
+        // レンダラーを作成
+        var renderer = new THREE.WebGLRenderer();
+        document.body.appendChild(renderer.domElement);
+        renderer.setSize(width, height);
+
+        renderer.setClearColor(0x00bfff);
+        // シーンを作成
+        const scene = new THREE.Scene();
+
+        // カメラを作成
+        const camera = new THREE.PerspectiveCamera(45, width / height);
+        // カメラの初期座標を設定
+        camera.position.set(10, 10, 10);
+
+        // カメラコントローラーを作成
+        const controls = new THREE.OrbitControls(camera, document.body); 
+        
+        // 平行光源1
+        var directionalLight1 = new THREE.DirectionalLight(0xffffff);
+        directionalLight1.position.set(5, 5, 5);
+        // シーンに追加
+        scene.add(directionalLight1);
+        // 平行光源2
+        var directionalLight2 = new THREE.DirectionalLight(0x888888);
+        directionalLight2.position.set(-10, -10, 10);
+        // シーンに追加
+        scene.add(directionalLight2);
+
+        // テクスチャー読み込み
+        var textureLoader = new THREE.TextureLoader(); 
+        var metal = new THREE.MeshPhongMaterial();
+        metal.map = texture;
+
+        // テクスチャー読み込み
+        var textureLoader = new THREE.TextureLoader(); 
+        var texture = textureLoader.load("sky2.jpg");
+        var sky = new THREE.MeshPhongMaterial();
+        sky.map = texture;       
+        
+        var a = new THREE.MeshPhongMaterial({ color: 0xffffff });
+
+        //平面を作成
+        var geometry = new THREE.PlaneGeometry(50, 50);
+        var plane1 = new THREE.Mesh(geometry, sky);
+        plane1.rotation.set( -Math.PI/2, 0, 0 );
+        plane1.position.set(0,-2,0);
+
+        // 球を作成
+        var geometry2 = new THREE.SphereGeometry(0.98, 32, 32); ;
+        var front = new THREE.Mesh(geometry2, metal);
+        front.position.set(0,-0.08,-1);
+
+        var cylinderGeometry = new THREE.CylinderGeometry( 1, 1, 0.2, 4);
+        var rtubasa = new THREE.Mesh(cylinderGeometry,metal);
+        rtubasa.rotation.y = 0.8;
+        rtubasa.position.set(1.5, 0, 0);
+
+        // kumoを作成
+        var kumo_g = new THREE.SphereGeometry(0.5, 32, 32);
+        var kumo1 = new THREE.Mesh(kumo_g, a);
+        kumo1.position.set(0,0,0);
+        var kumo2 = new THREE.Mesh(kumo_g, a);
+        kumo2.position.set(0.5,0.2,0.2);
+        var kumo3 = new THREE.Mesh(kumo_g, a);
+        kumo3.position.set(-0.3,0.1,-0.2);
+        var kumo4 = new THREE.Mesh(kumo_g, a);
+        kumo4.position.set(0.2,0.4,0.4);
+        var kumo5 = new THREE.Mesh(kumo_g, a);
+        kumo5.position.set(0,0.5,0);
+
+        var kumo6 = new THREE.Mesh(kumo_g, a);
+        kumo6.position.set(0,0,0);
+        var kumo7 = new THREE.Mesh(kumo_g, a);
+        kumo7.position.set(0.5,0.2,0.2);
+        var kumo8 = new THREE.Mesh(kumo_g, a);
+        kumo8.position.set(-0.3,0.1,-0.2);
+        var kumo9 = new THREE.Mesh(kumo_g, a);
+        kumo9.position.set(0.2,0.4,0.4);
+        var kumo10 = new THREE.Mesh(kumo_g, a);
+        kumo10.position.set(0,0.5,0);
+        
+
+        const kumoa = new THREE.Group();
+        kumoa.add(kumo1);
+        kumoa.add(kumo2);
+        kumoa.add(kumo3);
+        kumoa.add(kumo4);
+        kumoa.add(kumo5);
+        kumoa.position.set(3.5,0,2);
+        scene.add(kumoa);
+
+        const kumob = new THREE.Group();
+        kumob.add(kumo6);
+        kumob.add(kumo7);
+        kumob.add(kumo8);
+        kumob.add(kumo9);
+        kumob.add(kumo10);
+        kumob.position.set(-4,0,-2);
+        scene.add(kumob);
+      
+
+        //全体のオブジェクト
+        const all = new THREE.Group();
+        all.add(kumoa);
+        all.add(kumob);
+        all.position.set(0,0,0);//全体グループの原点の位置
+        scene.add(all); 
+
+        update();
+
+        // 毎フレーム時に実行されるループイベントです
+        function update() {
+          // レンダリング
+          renderer.render(scene, camera);
+          requestAnimationFrame(update);
+
+          if(kumoa.position.y >= 6){
+            kumoa.position.y = -6;
+          } else {
+            kumoa.position.y += 0.1;
+          }
+
+          if(kumob.position.y >= 6){
+            kumob.position.y = -6;
+          } else {
+            kumob.position.y += 0.1;
+          }
+
+        }
+      }
+    </script>
+</body>
+</html>
